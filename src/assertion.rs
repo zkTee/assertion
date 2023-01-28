@@ -22,6 +22,8 @@ pub enum Op {
     Equal,
     #[serde(rename = "!=")]
     NotEq,
+    #[serde(rename = "contains")]
+    Contains,
 }
 
 #[derive(Serialize, Deserialize, Debug, Copy, Clone, Hash, Eq, PartialEq)]
@@ -88,7 +90,11 @@ impl Logic for LogicItem {
                 Op::LessEq => src <= dst,
                 Op::GreaterThan => src > dst,
                 Op::LessThan => src < dst,
-                Op::NotEq => todo!(),
+                Op::NotEq => src != dst,
+                Op::Contains => {
+                    let arr: Vec<String> = serde_json::from_str(dst).unwrap();
+                    arr.contains(src)
+                },
             },
             Self::Multi { logic_op, items } => match logic_op {
                 LogicOp::Or => items.iter().any(|item| item.eval()),

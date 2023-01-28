@@ -6,7 +6,7 @@ mod b;
 use b::*;
 
 fn main() {
-    let use_a = false;
+    let use_a = true;
 	if use_a {
 		a();
 
