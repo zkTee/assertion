@@ -51,14 +51,14 @@ pub enum Assertion {
 }
 
 impl Assertion {
-    pub fn new_multi(logic_op: LogicOp) -> Self {
+    pub fn new_item_array(logic_op: LogicOp) -> Self {
         Self::ItemArray {
             logic_op,
             items: vec![],
         }
     }
 
-    pub fn new_single<T: ToString>(src: T, op: Op, dsc: T) -> Self {
+    pub fn new_item<T: ToString>(src: T, op: Op, dsc: T) -> Self {
         Self::Item {
             src: src.to_string(),
             op,
@@ -83,6 +83,8 @@ pub trait Logic {
 
 impl Logic for Assertion {
     fn eval(&self) -> bool {
+        println!("self: {:?}", self);
+
         match self {
             Self::Item { src, op, dsc } => match op {
                 Op::Equal => src == dsc,
@@ -105,6 +107,8 @@ impl Logic for Assertion {
                     return false;
                 }
                 // TODO: make sure the map length is 1
+                assert!(map.len() >= 1);
+                
                 let (logic_op, items) = map.iter().next().unwrap();
                 match logic_op {
                     LogicOp::Or => items.iter().any(|item| item.eval()),

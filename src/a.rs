@@ -31,12 +31,12 @@ pub fn a() {
     println!("logic_item: {:?}", logic_item);
 	println!("eval : {}", logic_item.eval());
 
-    let logic_1 = Assertion::new_single("a", Op::GreaterEq, "2");
-    let logic_2 = Assertion::new_single("c", Op::LessThan, "10");
-    let logic_3 = Assertion::new_single("b", Op::GreaterThan, "3");
+    let logic_1 = Assertion::new_item("a", Op::GreaterEq, "2");
+    let logic_2 = Assertion::new_item("c", Op::LessThan, "10");
+    let logic_3 = Assertion::new_item("b", Op::GreaterThan, "3");
 
-    let m_logic_1 = Assertion::new_multi(LogicOp::And).add_item(logic_2.clone());
-    let m_logic = Assertion::new_multi(LogicOp::Or)
+    let m_logic_1 = Assertion::new_item_array(LogicOp::And).add_item(logic_2.clone());
+    let m_logic = Assertion::new_item_array(LogicOp::Or)
         .add_item(logic_1.clone())
         .add_item(m_logic_1)
         .add_item(logic_3.clone());
