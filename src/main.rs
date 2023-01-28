@@ -30,7 +30,6 @@ fn main() {
     let logic_item: LogicItem = serde_json::from_str(&data).unwrap();
     println!("logic_item: {:?}", logic_item);
 
-
     let logic_1 = LogicItem::new_single("a", Op::BiggerEqual, "2");
     let logic_2 = LogicItem::new_single("c", Op::LowerThan, "10");
     let logic_3 = LogicItem::new_single("b", Op::BiggerThan, "3");

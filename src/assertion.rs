@@ -39,7 +39,7 @@ pub enum LogicItem {
     },
     Multi {
         logic_op: LogicOp,
-        
+
         #[serde(default)]
         items: Vec<Box<LogicItem>>,
     },
