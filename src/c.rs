@@ -1,4 +1,4 @@
-use crate::LogicItem;
+use crate::Assertion;
 use crate::assertion::*;
 
 pub fn c() {
@@ -86,7 +86,7 @@ let data = r#"
         }
     ]
 }"#;
-    let logic_item: LogicItem = serde_json::from_str(&data).unwrap();
+    let logic_item: Assertion = serde_json::from_str(&data).unwrap();
     println!("logic_item: {:?}", logic_item);
 	println!("eval : {}", logic_item.eval());
 }

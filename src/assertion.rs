@@ -35,43 +35,43 @@ pub enum LogicOp {
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
-pub enum LogicItem {
-    Single {
+pub enum Assertion {
+    Item {
         src: String,
         op: Op,
         dsc: String,
     },
-    Multi {
+    ItemArray {
         logic_op: LogicOp,
 
         #[serde(default)]
-        items: Vec<Box<LogicItem>>,
+        items: Vec<Box<Assertion>>,
     },
-    MultiMap(HashMap<LogicOp, Vec<Box<LogicItem>>>),
+    ItemMap(HashMap<LogicOp, Vec<Box<Assertion>>>),
 }
 
-impl LogicItem {
+impl Assertion {
     pub fn new_multi(logic_op: LogicOp) -> Self {
-        Self::Multi {
+        Self::ItemArray {
             logic_op,
             items: vec![],
         }
     }
 
     pub fn new_single<T: ToString>(src: T, op: Op, dsc: T) -> Self {
-        Self::Single {
+        Self::Item {
             src: src.to_string(),
             op,
             dsc: dsc.to_string(),
         }
     }
-    pub fn add_item(mut self, item: LogicItem) -> Self {
+    pub fn add_item(mut self, item: Assertion) -> Self {
         match &mut self {
-            Self::Multi { items, .. } => items.push(Box::new(item)),
-            Self::MultiMap(_map) => {
+            Self::ItemArray { items, .. } => items.push(Box::new(item)),
+            Self::ItemMap(_map) => {
                 todo!("insert to map")
             }
-            Self::Single { .. } => unreachable!(),
+            Self::Item { .. } => unreachable!(),
         }
         self
     }
@@ -81,10 +81,10 @@ pub trait Logic {
     fn eval(&self) -> bool;
 }
 
-impl Logic for LogicItem {
+impl Logic for Assertion {
     fn eval(&self) -> bool {
         match self {
-            Self::Single { src, op, dsc } => match op {
+            Self::Item { src, op, dsc } => match op {
                 Op::Equal => src == dsc,
                 Op::GreaterEq => src >= dsc,
                 Op::LessEq => src <= dsc,
@@ -96,11 +96,11 @@ impl Logic for LogicItem {
                     arr.contains(src)
                 },
             },
-            Self::Multi { logic_op, items } => match logic_op {
+            Self::ItemArray { logic_op, items } => match logic_op {
                 LogicOp::Or => items.iter().any(|item| item.eval()),
                 LogicOp::And => !items.iter().all(|item| !item.eval()),
             },
-            Self::MultiMap(map) => {
+            Self::ItemMap(map) => {
                 if map.is_empty() {
                     return false;
                 }
