@@ -5,36 +5,36 @@ pub fn b() {
     let data = r#"
 {
 "and": [
-  		{
-         "or": [
-            {
-               "src": "$network",
-               "op": "==",
-               "dsc": "ethereum"
-            },
-            {
-               "src": "$network",
-               "op": "==",
-               "dsc":"litentry"
-            },
-            {
-               "src": "$network",
-               "op": "==",
-               "dsc": "litmus"
-            }
-         ]
-      },
-      {
-         "src": "$txAmount",
-         "op": ">=",
-         "dsc": "500"
-      },
-      {
-         "src":"$txAmount",
-         "op":"<",
-         "dsc":"1000"
-      }
-   ]
+         {
+            "or": [
+               {
+                  "src": "$network",
+                  "op": "==",
+                  "dsc": "ethereum"
+               },
+               {
+                  "src": "$network",
+                  "op": "==",
+                  "dsc":"litentry"
+               },
+               {
+                  "src": "$network",
+                  "op": "==",
+                  "dsc": "litmus"
+               }
+            ]
+         },
+         {
+            "src": "$txAmount",
+            "op": ">=",
+            "dsc": "500"
+         },
+         {
+            "src":"$txAmount",
+            "op":"<",
+            "dsc":"1000"
+         }
+      ]
 }"#;
     let logic_item: Result<LogicItem, _> = serde_json::from_str(data);
     println!("{:?}", logic_item);

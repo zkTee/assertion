@@ -39,7 +39,7 @@ pub enum LogicItem {
     Single {
         src: String,
         op: Op,
-        dst: String,
+        dsc: String,
     },
     Multi {
         logic_op: LogicOp,
@@ -58,11 +58,11 @@ impl LogicItem {
         }
     }
 
-    pub fn new_single<T: ToString>(src: T, op: Op, dst: T) -> Self {
+    pub fn new_single<T: ToString>(src: T, op: Op, dsc: T) -> Self {
         Self::Single {
             src: src.to_string(),
             op,
-            dst: dst.to_string(),
+            dsc: dsc.to_string(),
         }
     }
     pub fn add_item(mut self, item: LogicItem) -> Self {
@@ -84,15 +84,15 @@ pub trait Logic {
 impl Logic for LogicItem {
     fn eval(&self) -> bool {
         match self {
-            Self::Single { src, op, dst } => match op {
-                Op::Equal => src == dst,
-                Op::GreaterEq => src >= dst,
-                Op::LessEq => src <= dst,
-                Op::GreaterThan => src > dst,
-                Op::LessThan => src < dst,
-                Op::NotEq => src != dst,
+            Self::Single { src, op, dsc } => match op {
+                Op::Equal => src == dsc,
+                Op::GreaterEq => src >= dsc,
+                Op::LessEq => src <= dsc,
+                Op::GreaterThan => src > dsc,
+                Op::LessThan => src < dsc,
+                Op::NotEq => src != dsc,
                 Op::Contains => {
-                    let arr: Vec<String> = serde_json::from_str(dst).unwrap();
+                    let arr: Vec<String> = serde_json::from_str(dsc).unwrap();
                     arr.contains(src)
                 },
             },
