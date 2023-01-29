@@ -4,7 +4,6 @@ use std::{
     string::{String, ToString},
     vec::Vec,
 };
-
 use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, Copy, Clone)]
@@ -94,8 +93,16 @@ impl Logic for Assertion {
                 Op::LessThan => src < dsc,
                 Op::NotEq => src != dsc,
                 Op::Contains => {
-                    let arr: Vec<String> = serde_json::from_str(dsc).unwrap();
-                    arr.contains(src)
+                    // let arr_src = serde_json::from_str(src).unwrap();
+                    // let arr_dsc: Vec<dyn PartialEq> = serde_json::from_str(dsc).unwrap();
+                    // let mut is_contains = true;
+                    // for v in arr_src {
+                    //     is_contains = arr_dsc.contains(&v) && is_contains;
+                    // }
+
+                    // is_contains
+
+                    false
                 },
             },
             Self::ItemArray { logic_op, items } => match logic_op {
@@ -108,7 +115,7 @@ impl Logic for Assertion {
                 }
                 // TODO: make sure the map length is 1
                 assert!(map.len() >= 1);
-                
+
                 let (logic_op, items) = map.iter().next().unwrap();
                 match logic_op {
                     LogicOp::Or => items.iter().any(|item| item.eval()),

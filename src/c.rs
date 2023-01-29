@@ -83,6 +83,11 @@ let data = r#"
             "src": "$networka",
             "op": ">=",
             "dsc": "2"
+        },
+        {
+            "src": "1",
+            "op": "contains",
+            "dsc": "[1,2]"
         }
     ]
 }"#;
