@@ -1,33 +1,33 @@
-use crate::Assertion;
 use crate::assertion::*;
+use crate::Assertion;
 
 pub fn c() {
-//     let data = r#"
-// {
-// "or": [
-//         {
-//             "src": "$networka",
-//             "op": ">=",
-//             "dsc": "2"
-//         },
-//         {
-//             "src": "a",
-//             "op": ">=",
-//             "dsc": "2"
-//         },
-//         {
-//             "and": [
-//                 {
-//                     "src": "a",
-//                     "op": ">=",
-//                     "dsc": "2"
-//                 } 
-//             ]
-//         }
-//     ]
-// }
-// "#;
-let data = r#"
+    //     let data = r#"
+    // {
+    // "or": [
+    //         {
+    //             "src": "$networka",
+    //             "op": ">=",
+    //             "dsc": "2"
+    //         },
+    //         {
+    //             "src": "a",
+    //             "op": ">=",
+    //             "dsc": "2"
+    //         },
+    //         {
+    //             "and": [
+    //                 {
+    //                     "src": "a",
+    //                     "op": ">=",
+    //                     "dsc": "2"
+    //                 }
+    //             ]
+    //         }
+    //     ]
+    // }
+    // "#;
+    let data = r#"
 {
     "and": [
 
@@ -64,7 +64,7 @@ let data = r#"
 }
 "#;
 
-let data = r#"
+    let data = r#"
 {
     "and": [
 
@@ -93,5 +93,5 @@ let data = r#"
 }"#;
     let logic_item: Assertion = serde_json::from_str(&data).unwrap();
     println!("logic_item: {:?}", logic_item);
-	println!("eval : {}", logic_item.eval());
+    println!("eval : {}", logic_item.eval());
 }

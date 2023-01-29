@@ -1,5 +1,5 @@
-use crate::Assertion;
 use crate::assertion::*;
+use crate::Assertion;
 
 pub fn a() {
     let data = r#"
@@ -29,7 +29,7 @@ pub fn a() {
 "#;
     let logic_item: Assertion = serde_json::from_str(&data).unwrap();
     println!("logic_item: {:?}", logic_item);
-	println!("eval : {}", logic_item.eval());
+    println!("eval : {}", logic_item.eval());
 
     let logic_1 = Assertion::new_item("a", Op::GreaterEq, "2");
     let logic_2 = Assertion::new_item("c", Op::LessThan, "10");

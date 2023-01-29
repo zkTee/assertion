@@ -11,13 +11,13 @@ fn main() {
     // let use_a = true;
     // let use_a = false;
     // let use_a = false;
-	// if use_a {
-	// 	a();
+    // if use_a {
+    // 	a();
 
-	// 	return;
-	// }
+    // 	return;
+    // }
 
-	// b();
+    // b();
 
-	c();
+    c();
 }

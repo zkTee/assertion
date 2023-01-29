@@ -1,5 +1,5 @@
-use crate::Assertion;
 use crate::assertion::*;
+use crate::Assertion;
 
 pub fn b() {
     let data = r#"

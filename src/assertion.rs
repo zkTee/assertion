@@ -1,10 +1,10 @@
+use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::{
     fmt::Debug,
     string::{String, ToString},
     vec::Vec,
 };
-use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize, Debug, Copy, Clone)]
 #[serde(rename_all = "lowercase")]
@@ -103,7 +103,7 @@ impl Logic for Assertion {
                     // is_contains
 
                     false
-                },
+                }
             },
             Self::ItemArray { logic_op, items } => match logic_op {
                 LogicOp::Or => items.iter().any(|item| item.eval()),
