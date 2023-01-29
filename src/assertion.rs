@@ -60,12 +60,6 @@ pub struct ItemObject {
 #[serde(untagged)]
 pub enum Assertion {
     Item(Item),
-    // ItemArray {
-    //     logic_op: LogicOp,
-
-    //     #[serde(default)]
-    //     items: Vec<Box<Assertion>>,
-    // },
     ItemMap(HashMap<LogicOp, Vec<Box<Assertion>>>),
 }
 
@@ -81,18 +75,17 @@ impl Assertion {
         Self::Item(item)
     }
 
-    pub fn add_item(mut self, item: Assertion) -> Self {
+    // pub fn add_item(mut self, item: Assertion) -> Self {
         
-        match &mut self {
-            // Self::ItemArray { items, .. } => items.push(Box::new(item)),
-            // Self::ItemArray(op, items) => items.push(Box::new(item)),
-            Self::ItemMap(_map) => {
-                todo!("insert to map")
-            }
-            Self::Item { .. } => unreachable!(),
-        }
-        self
-    }
+    //     match &mut self {
+    //         // Self::ItemArray { items, .. } => items.push(Box::new(item)),
+    //         Self::ItemMap(_map) => {
+    //             todo!("insert to map")
+    //         }
+    //         Self::Item { .. } => unreachable!(),
+    //     }
+    //     self
+    // }
 }
 
 pub trait Logic {
@@ -104,7 +97,6 @@ impl Logic for Assertion {
         println!("self: {:?}", self);
 
         match self {
-            // Self::Item { src, op, dsc } => match op {
             Self::Item(item) => {
                 let op = item.op;
                 let src = &item.src;
@@ -140,7 +132,7 @@ impl Logic for Assertion {
                 if map.is_empty() {
                     return false;
                 }
-                // TODO: make sure the map length is 1
+
                 assert!(map.len() >= 1);
 
                 let (logic_op, items) = map.iter().next().unwrap();
